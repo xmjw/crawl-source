@@ -1,11 +1,10 @@
-## What?
+# What?
 
 Keep a log/db of top 1m domains.
 
 Download http://downloads.majestic.com/majestic_million.csv
 
-
-## Plan
+# Plan
 
 - Use GoLand apps as micro services
 - Scrape each site, index keywords
@@ -15,12 +14,11 @@ Download http://downloads.majestic.com/majestic_million.csv
 
 Create a Google BigTable dataset of every website and the graph of everything it links to.
 
-### Structure
+## Structure
 
 Components that we need:
 
 - Something to fetch the URLs and write them to a table every n-days. (Is this necessary, once we have a set surely we just keep working from that?)
 - Something to fetch each site craw the pages for links.
-
 
 Other things?
