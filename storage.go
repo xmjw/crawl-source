@@ -3,13 +3,14 @@ package main
 import (
 	"database/sql"
 	"os"
+	"sync"
 
 	_ "github.com/lib/pq"
 )
 
 var connection = DatabaseConnection()
 
-func WriteDomain(domain string) {
+func WriteDomain(domain string, wg *sync.WaitGroup) {
 	_, err := connection.Exec(
 		"INSERT INTO sources (domain) VALUES ($1)",
 		domain)
@@ -17,6 +18,8 @@ func WriteDomain(domain string) {
 	if err != nil {
 		panic(err)
 	}
+
+	wg.Done()
 }
 
 func DatabaseConnection() *sql.DB {

@@ -5,12 +5,15 @@ import (
 	"encoding/csv"
 	"io"
 	"os"
+	"sync"
 )
 
 func main() {
 	f, _ := os.Open("urls.csv")
 
 	r := csv.NewReader(bufio.NewReader(f))
+
+	var wg sync.WaitGroup
 
 	for {
 		record, err := r.Read()
@@ -19,6 +22,8 @@ func main() {
 			break
 		}
 
-		WriteDomain(record[2])
+		wg.Add(1)
+		go WriteDomain(record[2], &wg)
 	}
+	wg.Wait()
 }
